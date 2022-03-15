@@ -1,0 +1,24 @@
+1. 브라우저 없이 사용 node.js/ npm/yarn
+2. node.js로 만드는 휴대폰 인증토큰
+3. 코드 리팩토링
+
+
+1. node.js란?
+html, css, js로 이루어진 웹사이트
+js는 기존 홈페이지 제작만 가능했음 -> js의 발전을 꿈꾸며 브라우저 없이 
+js를 실행시킬 수 있는 node.js라는 도구를 제작
+
+npmjs.com에는 라이브러리가 가득.(내 컴퓨터에 npm을 설치하고, 다른 사람
+들이 내가 만든 프로그램을 사용할 수 있게 올리거나 다른 사람의 것을 가져
+올 수 있음.)
+
+
+node.js는 자바스크립트 런타임 엔진
+
+npm은 node package manager로 패키지관리자
+-> 속도가 느려 페이스북에서 yarn 제작
+codecamp에서는yarn 사용
+
+yarn설치
+: npm install yarn
+
