@@ -22,3 +22,8 @@ codecamp에서는yarn 사용
 yarn설치
 : npm install yarn
 
+
+템플릿리터럴
+: 백틱 안에 ${}를 통해 변수를 사용한다.
+    -깔끔, 간단, 줄바꿈까지 가능
+
