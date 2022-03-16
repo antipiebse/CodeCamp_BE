@@ -1,10 +1,10 @@
-import { checkValidationNum, EncryptionNum, printNum } from './number.js';
+import { checkValidationNum, EncryptionNum, printNum, checkValidationhyphen } from './number.js';
 
 function residentRegistrationNumber(num) {
-    const isValid = checkValidationNum(num)
-    if (isValid === true){
-        const value = EncryptionNum(num);
-        printNum(value);
+    if (checkValidationhyphen(num)){
+        if (checkValidationNum(num)){
+            printNum(EncryptionNum(num));
+        }
     };
 }
-residentRegistrationNumber('920324-0102271');
+residentRegistrationNumber('920324-0001271');
