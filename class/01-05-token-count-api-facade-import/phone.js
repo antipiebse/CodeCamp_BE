@@ -14,17 +14,7 @@ export function checkValidationPhone(myphone) {
 }
 
 export function getToken() {
-    mycount = 6;
-    if(mycount === undefined){
-        console.log('에러발생, 값을 입력하여주십시오.');
-        return
-    } else if(mycount <= 0){
-        console.log('에러발생, 갯수가 너무 적습니다');
-        return
-    } else if(mycount > 10){
-        console.log('에러발생, 갯수가 너무 많습니다');
-        return
-    } 
+    let mycount = 6;
     const result = String(Math.floor(Math.random() * Math.pow(10, mycount))).padStart(mycount, "0");
     return result;
 }
