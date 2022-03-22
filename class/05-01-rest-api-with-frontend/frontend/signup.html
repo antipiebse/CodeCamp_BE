@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>회원가입 연습하기</title>
+    <!-- contents delivery network -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- window.axios라는 형식으로 저장된다.
+        
+    -->
+    
+    <script>
+        function zzz(){
+            // 1. 휴대폰 번호 가져오기
+            const aaa = document.getElementById('qqq').value
+            console.log('나의 핸드폰 번호: ', aaa);
+            
+            // 2. 해당 휴대폰 번호로 인증번호 요청하기
+            axios.post("http://localhost:3000/tokens/phone",{
+                myphone: aaa
+            }).then((res)=>{
+                console.log(res);
+                document.getElementById("result").innerText = res.data
+            })
+        }
+    </script>
+</head>
+<body>
+    휴대폰번호: <input type="text" id ="qqq">
+    <button onclick="zzz()">인증하기</button>
+    <div id = "result">인증상태</div>
+
+    <button>회원가입하기</button>
+</body>
+</html> 
