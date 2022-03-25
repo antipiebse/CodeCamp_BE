@@ -1,3 +1,11 @@
+// docker ps -a -q
+// docker rm `docker ps -a -q`
+// docker rm `docker ps -a -q`
+// docker rmi `docker images -q`
+// docker system prune -a
+// docker rm `docker ps -a -q`
+
+
 //express
 import express from 'express';
 //modules
@@ -12,9 +20,11 @@ dotenv.config()
 
 import { checkValidationEmail, getWelcomeTemplate, sendTemplateToEmail } from './email.js'
 import mongoose from 'mongoose'
-import { Token } from './models/token.model.js';
+import { Board } from './models/board.model.js';
+import { Stock } from './models/stock.model.js';
 
-
+//mongodb 접속
+mongoose.connect("mongodb://my-database:27017/codecamp")
 
 
 const openapiSpecification = swaggerJsdoc(options);
@@ -58,63 +68,23 @@ app.post('/boards', async (req, res) => {
 })
 
 
-app.get('/aaa', (req,res)=>{
-    let a = new Token({
-        token: '12345',
-        phone: '123',
-        isAuth: false
-    })
-    a.save() 
-    res.send('등록 성공!');
-}
-)
-//token만들기
-app.post('/tokens/phone', async (req, res) => {
-    let myphone = req.body.phone;
-    // 1. 핸드폰 자릿수 확인.
-    let newtoken = ' '
-    let isphone = await Token.findOne({phone:myphone})
 
+//token만들기
+app.post('/tokens/phone', (req, res) => {
+    const myphone = req.body.phoneNumber;
+    // 1. 핸드폰 자릿수 확인.
     const isValid = checkValidationPhone(myphone);
     if (isValid === true) {
         // 2.핸드폰 토큰 6자리 만들기
-        newtoken = getToken()
-        //핸드폰 존재
-        console.log(isphone)
-        if(isphone){
-            await Token.updateOne({phone:myphone},{token:newtoken})
-        }//존재 x
-        else{
-            let token = new Token({
-                token: newtoken,
-                phone: myphone,
-                isAuth: false
-            })
-            console.log('44')
-            token.save() 
-        }    
+        const mytoken = getToken()
+
         // 3. 핸드폰 번호에 토큰 전송하기
-        sendTokenToSMS(myphone, newtoken)
+        sendTokenToSMS(myphone, mytoken)
         res.send('인증완료!!');
     }
-
 })
 
-app.patch('/tokens/phone', async(req,res)=>{
-    let token= req.body.token;
-    let phone = req.body.phone;
-    let [usertoken,userphone, isAuth] = await Token.find({phone:phone})
-    consolo.log(userphone);
-    if(userphone !== phone){
-        res.send(false)
-    }else if(token !== usertoken){
-        res.send(false)
-    }else if(user.isAuth===false){
-        await Token.updateOne({phone:userphone},{isAuth:true} )
-        res.send(true)
-    }
-    res.send('1234')
-})
+
 
 app.post('/users', (req, res) => {
     const myuser = req.body.user;
@@ -128,7 +98,11 @@ app.post('/users', (req, res) => {
     }
 })
 
-
+app.get("/stocks", async (req,res)=>{
+    const stocks= await Stock.find()
+    
+    res.send(stocks)
+})
 
 
 // //특정게시글 아이디만 보기
@@ -145,8 +119,7 @@ app.post('/users', (req, res) => {
 // app.delete('/boards/:id',(req,res) => {
 //     res.send('');
 // })
-//mongodb 접속
-mongoose.connect("mongodb://my-database:27017/codecamp")
+
 // backend api server open
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

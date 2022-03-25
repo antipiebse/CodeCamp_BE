@@ -6,4 +6,4 @@ COPY ./yarn.lock /myfolder/
 RUN yarn install
 
 COPY . /myfolder/
-CMD yarn dev
+CMD node index.js
