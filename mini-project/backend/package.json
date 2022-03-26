@@ -5,10 +5,12 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev":"nodemon index.js"  
+    "dev": "nodemon index.js"
   },
   "dependencies": {
     "axios": "^0.26.1",
+    "cheerio": "^1.0.0-rc.10",
+    "docker": "^1.0.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "mongoose": "^6.2.8",
@@ -16,5 +18,4 @@
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.3.0"
   }
- 
 }

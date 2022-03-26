@@ -2,7 +2,7 @@
 const getCoffee = () => {
     // 받은 데이터로 createMenuCard 함수를 이용해
     // 메뉴 카드를 만들어주세요.
-    axios.get("http://localhost:3000/starbucks")
+    axios.post("http://localhost:3000/starbucks")
     .then((res) => {
         return createMenuCard(res.data)
     }).catch(function (error) {

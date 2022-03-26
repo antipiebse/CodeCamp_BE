@@ -2,25 +2,25 @@
  * @openapi
  * /starbucks:
  *   get:
- *      summary: 게시글 가져오기
+ *      summary: 스타벅스 커피 목록 조회
  *      tags : [starbucks]
  *      parameters:
- *          - in: query
- *            name: number
- *            type: int
+ *          description: 
  *      responses:
  *          200:
- *              description: 성공
+ *              description: 커피목록 가져오기 성공
  *              content: 
  *                  application/json:
  *                      schema:
- *                          type: array
- *                          items: 
- *                              properties:
- *                                  name:
- *                                      type: string
- *                                      example: 아메리카노
- *                                  kcal:
- *                                      type: int
- *                                      example: 75
+ *                          type: object
+ *                          properties:
+ *                              _id: 
+ *                                  type: string
+ *                                  example: 61231321e3esefs
+ *                              name: 
+ *                                  type: string
+ *                                  example: 나이트로 바닐라 크림
+ *                              img: 
+ *                                  type: string
+ *                                  example: https://s.pstatic.net/static/www/mobile/edit/2016/0705/mobile_2128.png                        
  */
