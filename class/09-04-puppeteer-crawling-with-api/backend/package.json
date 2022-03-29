@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev":"nodemon index.js"  
+    "dev": "nodemon index.js"
   },
   "dependencies": {
     "axios": "^0.26.1",
@@ -13,8 +13,8 @@
     "express": "^4.17.3",
     "mongoose": "^6.2.8",
     "nodemon": "^2.0.15",
+    "puppeteer": "^13.5.1",
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.3.0"
   }
- 
 }
