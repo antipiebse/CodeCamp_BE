@@ -1,0 +1,37 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/bin/yarn add express
+
+PATH: 
+  /home/antipiebse/.vscode-server/bin/c722ca6c7eed3d7987c0d5c3df5c45f6b15e77d1/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Python310/Scripts/:/mnt/c/Python310/:/mnt/c/Users/s4223/AppData/Local/Programs/Python/Python39/Scripts:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/PuTTY/:/mnt/c/Program Files/nodejs/:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Program Files/Bandizip/:/mnt/c/Program Files/MongoDB/Server/5.0/bin:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin:/mnt/c/Users/s4223/.pyenv/pyenv-win/bin:/mnt/c/Users/s4223/.pyenv/pyenv-win/shims:/mnt/c/Users/s4223/.pyenv/pyenv-win/bin:/mnt/c/Users/s4223/.pyenv/pyenv-win/shims:/mnt/c/Users/s4223/.pyenv/pyenv-win/bin:/mnt/c/Users/s4223/.pyenv/pyenv-win/shims:/mnt/c/Windows/System32:/mnt/c/Users/s4223/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/s4223/AppData/Local/GitHubDesktop/bin:/mnt/c/Users/s4223/AppData/Roaming/npm:/snap/bin
+
+Yarn version: 
+  1.22.17
+
+Node version: 
+  16.14.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  SyntaxError: /home/antipiebse/dev/codecamp-backend-02/class/11-03-express/package.json: Unexpected token } in JSON at position 112
+      at JSON.parse (<anonymous>)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "11-03-express",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "type":"module",
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
