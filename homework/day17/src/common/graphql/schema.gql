@@ -1,0 +1,65 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Board {
+  number: Int!
+  writer: String!
+  title: String!
+  contents: String!
+}
+
+type ProductMainCategory {
+  id: String!
+}
+
+type ProductSubCategory {
+  id: String!
+  category: String!
+  productMainCategoay: ProductMainCategory!
+}
+
+type ProductCart {
+  id: String!
+  productId: String!
+}
+
+type Product {
+  id: String!
+  name: String!
+  description: String!
+  price: Int!
+  isSoldout: Boolean!
+  productCart: ProductCart!
+  productSubCategory: ProductSubCategory!
+}
+
+type Query {
+  fetchBoards: [Board!]!
+  fetchProducts: [Product!]!
+  fetchProduct(productId: String!): Product!
+}
+
+type Mutation {
+  createBoard(writer: String!, title: String!, contents: String!, createBoardInput: createBoardInput!): String!
+  createProduct(createProductInput: CreateProductInput!): Product!
+  updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
+}
+
+input createBoardInput {
+  writer: String!
+  title: String!
+  contents: String!
+}
+
+input CreateProductInput {
+  name: String!
+  description: String!
+  price: Int!
+}
+
+input UpdateProductInput {
+  name: String
+  description: String
+  price: Int
+}
