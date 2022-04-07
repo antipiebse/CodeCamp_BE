@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <title>콜백과 친구들</title>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    function myCallback(){
+      const ccc = new XMLHttpRequest()
+      ccc.open("get", "http://numbersapi.com/random?min=1&max=200")
+      ccc.send()
+      ccc.addEventListener('load',(res)=> {
+        console.log("데이터가 로드되면 실행")
+        console.log(res)
+        const num =res.target.response.split(" ")[0]
+
+        const ddd = new XMLHttpRequest()
+        ddd.open("get",  `http://koreanjson.com/posts/${num}`)
+        ddd.send()
+        ddd.addEventListener("load", (res)=>{
+          console.log("두 번째는 이거 실행!!!")
+          console.log(JSON.parse(res.target.response))
+          const userId = JSON.parse(res.target.response).userId
+
+          const eee = new XMLHttpRequest()
+          eee.open("get",
+                   `http://koreanjson.com/posts?userId=${userId}`)
+          eee.send()
+          eee.addEventListener("load", (res)=>{
+            console.log('마지막으로 이거 실행시켜줘!!!')
+            console.log(res.target.response)
+          })
+        })
+
+       
+      }) 
+    }
+
+
+
+
+
+    // //axios를 직접 만드는 법
+    // new Promise((resolve, reject)=> {
+    //   //외부요청
+    //   //오래걸리는 작업
+    //   //resolve는 데이터를 성공적으로 받아왔을 때 res로 될 수있는 값 --> then
+    //   //reject는 데이터를 받는데 실패했ㅇ을 때 res로 되는 값 --> catch
+    //   resolve("")
+    // }).then(()=>{
+
+    // }).catch(()=>{
+
+    // })
+
+    function myPromise(){
+      // promise chaining
+      // 순서가 뒤죽박죽 섞일 수도 있다.
+      console.log("1번 실행!!")
+      axios
+        .get("http://numbersapi.com/random?min=1&max=200")
+        .then((res)=> {
+            console.log("2번 실행!!")
+            const num = res.data.split(" ")[0]
+            return axios.get(`http://koreanjson.com/posts/${num}`)
+        })
+        .then((res)=> {
+            console.log("3번 실행!!")
+            const userId = res.data.UserId
+            return axios.get(
+              `http://koreanjson.com/posts?userId=${userId}`
+            )
+        })
+        .then((res)=> {
+          console.log("4번 실행!!")
+          console.log(res.data)
+        })
+      console.log('5번 실행!!') 
+    }
+
+    async function myAsyncAwait(){
+      //await는 프로미스를 지원하는 곳에서만 사용가능!!(.then에서 사용! )
+      const res1 = await axios.get("http://numbersapi.com/random?min=1&max=200")
+      const num = res1.data.split(" ")[0]
+       
+      const res2 = await axios.get(`http://koreanjson.com/posts/${num}`)
+      const userId = res2.data.UserId
+
+      const res3 = await axios.get(`http://koreanjson.com/posts?userId=${userId}`)
+      console.log(res3.data)
+    }
+  </script>
+</head>
+<body>
+  <button onclick="myCallback()">Callback 연습하기!!</button>
+  <button onclick="myPromise()">Promise 연습하기!!</button>
+  <button onclick="myAsyncAwait()">Async-Await 연습하기!!</button>
+</body>
+</html>
