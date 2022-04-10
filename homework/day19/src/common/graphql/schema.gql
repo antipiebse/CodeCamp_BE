@@ -1,0 +1,83 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type ProductMainCategory {
+  id: String!
+  category: String!
+}
+
+type ProductSubCategory {
+  id: String!
+  category: String!
+  productMainCategory: ProductMainCategory!
+}
+
+type Board {
+  number: Int!
+  writer: String!
+  title: String!
+  contents: String!
+}
+
+type ProductCart {
+  id: String!
+  productId: String!
+}
+
+type Product {
+  id: String!
+  name: String!
+  description: String!
+  price: Int!
+  isSoldout: Boolean!
+  productCart: ProductCart!
+  productSubCategory: ProductSubCategory!
+  isDeleted: Boolean!
+}
+
+type Query {
+  fetchBoards: [Board!]!
+  fetchProducts: [Product!]!
+  fetchProduct(productId: String!): Product!
+}
+
+type Mutation {
+  createBoard(writer: String!, title: String!, contents: String!, createBoardInput: createBoardInput!): String!
+  createProduct(createProductInput: CreateProductInput!): Product!
+  updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
+  deleteProduct(productId: String!): Boolean!
+  createMainCateGory(category: String!): ProductMainCategory!
+  createSubCateGory(category: String!, productMainCategoryId: String!): ProductSubCategory!
+}
+
+input createBoardInput {
+  writer: String!
+  title: String!
+  contents: String!
+}
+
+input CreateProductInput {
+  name: String!
+  description: String!
+  price: Int!
+  productDetail: ProductDetailInput!
+  productSubCategoryId: String!
+}
+
+input ProductDetailInput {
+  gender: String!
+  season: String!
+  size: String!
+  brand: String!
+  origin: String!
+  stock: Int!
+}
+
+input UpdateProductInput {
+  name: String
+  description: String
+  price: Int
+  productDetail: ProductDetailInput
+  productSubCategoryId: String
+}
