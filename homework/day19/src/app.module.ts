@@ -1,3 +1,4 @@
+import { UserModule } from './apis/user/user.module';
 import { ProductSubCategoryModule } from './apis/productsSubCategory/productSubCategory.module';
 import { ProductMainCategoryModule } from './apis/productsMainCategory/productMainCategory.module';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
@@ -10,8 +11,10 @@ import { ProductModule } from './apis/products/products.module';
 @Module({//dependency
   imports: [
      BoardModule,
-     ProductModule,ProductMainCategoryModule,
+     ProductModule,
+     ProductMainCategoryModule,
      ProductSubCategoryModule,
+     UserModule,
       GraphQLModule.forRoot<ApolloDriverConfig>({
             driver: ApolloDriver,
          autoSchemaFile: 'src/common/graphql/schema.gql',

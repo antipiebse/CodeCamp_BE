@@ -2,6 +2,18 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type User {
+  id: String!
+  email: String!
+  phone: String!
+  address: String!
+  personal: String!
+  nickname: String!
+  profilePhoto: String!
+  isPhoto: Boolean!
+  firstMessage: String!
+}
+
 type ProductMainCategory {
   id: String!
   category: String!
@@ -20,9 +32,26 @@ type Board {
   contents: String!
 }
 
+type ProductDetail {
+  id: String!
+  gender: String!
+  season: String!
+  size: String!
+  brand: String!
+  origin: String!
+  stock: Int!
+  color: String!
+}
+
 type ProductCart {
   id: String!
   productId: String!
+}
+
+type ProductTag {
+  id: String!
+  name: String!
+  products: [Product!]!
 }
 
 type Product {
@@ -31,15 +60,18 @@ type Product {
   description: String!
   price: Int!
   isSoldout: Boolean!
+  productDetail: ProductDetail!
   productCart: ProductCart!
   productSubCategory: ProductSubCategory!
-  isDeleted: Boolean!
+  productTags: [ProductTag!]!
 }
 
 type Query {
   fetchBoards: [Board!]!
   fetchProducts: [Product!]!
   fetchProduct(productId: String!): Product!
+  fetchUsers: [User!]!
+  fetchUser(userId: String!): User!
 }
 
 type Mutation {
@@ -48,7 +80,10 @@ type Mutation {
   updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
   deleteProduct(productId: String!): Boolean!
   createMainCateGory(category: String!): ProductMainCategory!
-  createSubCateGory(category: String!, productMainCategoryId: String!): ProductSubCategory!
+  createSubCategory(category: String!, productMainCategoryId: String!): ProductSubCategory!
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(userId: String!, updateUserInput: UpdateUserInput!): User!
+  deleteUser(userId: String!): Boolean!
 }
 
 input createBoardInput {
@@ -61,23 +96,48 @@ input CreateProductInput {
   name: String!
   description: String!
   price: Int!
-  productDetail: ProductDetailInput!
+  createProductDetailInput: CreateProductDetailInput!
   productSubCategoryId: String!
 }
 
-input ProductDetailInput {
+input CreateProductDetailInput {
   gender: String!
   season: String!
   size: String!
   brand: String!
   origin: String!
   stock: Int!
+  color: String!
 }
 
 input UpdateProductInput {
   name: String
   description: String
   price: Int
-  productDetail: ProductDetailInput
+  createProductDetailInput: CreateProductDetailInput
   productSubCategoryId: String
+}
+
+input CreateUserInput {
+  password: String!
+  email: String!
+  phone: String!
+  address: String!
+  personal: String!
+  nickname: String!
+  profilePhoto: String!
+  isPhoto: Boolean!
+  firstMessage: String!
+}
+
+input UpdateUserInput {
+  password: String
+  email: String
+  phone: String
+  address: String
+  personal: String
+  nickname: String
+  profilePhoto: String
+  isPhoto: Boolean
+  firstMessage: String
 }
