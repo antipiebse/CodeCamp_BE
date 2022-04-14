@@ -40,7 +40,7 @@ export class AuthService {
    
     //구글 로그인에 성공하면 원래 위치로 돌아오기!
     res.redirect(
-      'http://localhost:15500/login/index.html'
+      'http://localhost:15500/main-project/frontend/login/index.html'
     )
    }
 

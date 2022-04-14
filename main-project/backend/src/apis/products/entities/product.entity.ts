@@ -6,6 +6,7 @@ import { DeleteDateColumn, Column, PrimaryGeneratedColumn, Entity, OneToOne, Joi
 import { ProductCart} from '../../productCart/entities/productCart.entity'
 import { Field, ObjectType, Int } from '@nestjs/graphql';
 import { ProductTag } from 'src/apis/productsTag/entities/productTag.entity';
+import { Order } from 'src/apis/order/entities/order.entity';
 
 @Entity()
 @ObjectType()
@@ -50,4 +51,9 @@ export class Product {
   @ManyToMany(() => ProductTag, (productTags) => productTags.products)
   @Field(() => [ProductTag])
   productTags: ProductTag[];
+
+  // @JoinColumn()
+  // @ManyToMany(()=> Order, (orders)=> orders.product)
+  // @Field(()=>[Order])
+  // orders: Order[]
 }

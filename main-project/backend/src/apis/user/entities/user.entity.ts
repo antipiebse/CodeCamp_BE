@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql'
+import { Field, ObjectType, Int } from '@nestjs/graphql'
 import { Column, PrimaryGeneratedColumn, Entity, DeleteDateColumn } from 'typeorm'
 
 
@@ -47,4 +47,8 @@ export class User {
 
   @DeleteDateColumn()
   deletedAt: Date
+
+  @Column({default: 0})
+  @Field(()=> Int)
+  money: number
 }
