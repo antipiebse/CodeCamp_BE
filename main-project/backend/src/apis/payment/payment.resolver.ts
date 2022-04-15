@@ -19,6 +19,6 @@ export class PaymentResolver {
     @CurrentUser() currentUser: ICurrentUser,
   ){
     // console.log(currentUser.email)
-    return this.paymentService.create({impUid, amount, currentUser,})
+    return this.paymentService.payment({impUid, amount, currentUser,})
   }
 }

@@ -19,12 +19,13 @@
         const myAmount = Number(document.getElementById("amount").value);
 
         const IMP = window.IMP; // 생략 가능
-        IMP.init("imp49910675"); // Example: imp00000000
+        IMP.init("imp61795344"); // Example: imp00000000
         IMP.request_pay(
           {
             // param
             pg: "html5_inicis",
             pay_method: "card",
+            merchant_uid: 'merchant_' + new Date().getTime(),
             name: "맨투맨",
             amount: myAmount,
             buyer_email: "antipiebse@gmail.com",
@@ -62,6 +63,7 @@
               console.log(data);
             } else {
               // 결제 실패시
+              console.log('결제에 실패하였습니다.')
             }
           }
         );
