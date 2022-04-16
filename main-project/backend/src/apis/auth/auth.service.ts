@@ -19,6 +19,8 @@ export class AuthService {
 
 
    getAccessToken({user}){
+     console.log(user)
+    console.log(user.id)
      return this.jwtService.sign(
        { sub: user.id, email: user.email},
        { secret: "myAccessKey", expiresIn: '1h'} //expiresIn은 토큰의 유효기간

@@ -7,7 +7,6 @@ import { GqlAuthAccessGuard } from './../../common/auth/gql-auth-guard';
 import * as bcrypt from 'bcrypt'
 import { UseGuards } from '@nestjs/common'
 import { CurrentUser } from './../../common/auth/gql-user.param';
-import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 
 
 @Resolver()
@@ -67,12 +66,11 @@ export class UserResolver {
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(()=> Boolean)
   deleteUser(
-    // @Args('userId') userId: string,
-    @CurrentUser('') currentUser: any
+    @Args('userId') userId: string,
+    // @CurrentUser('userId') currentUser: any,
     //
   ) {
-    
-    return this.userService.delete({ userId: currentUser.sub });
+    return this.userService.delete({ userId: userId});
   }
 
 

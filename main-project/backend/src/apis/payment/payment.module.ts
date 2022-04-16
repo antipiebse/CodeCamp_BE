@@ -4,6 +4,7 @@ import { Module } from '@nestjs/common';
 import { PaymentService } from './payment.service';
 import { Payment } from './entities/payment.entity';
 import { User } from '../user/entities/user.entity';
+import { IamportService } from '../iamport/iamport.service';
 
 
 @Module({
@@ -15,7 +16,8 @@ import { User } from '../user/entities/user.entity';
   ],
   providers: [
     PaymentResolver,
-    PaymentService
+    PaymentService,
+    IamportService
   ]
 })
 export class PaymentModule{}

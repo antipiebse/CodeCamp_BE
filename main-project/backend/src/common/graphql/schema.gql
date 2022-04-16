@@ -104,7 +104,7 @@ type Mutation {
   createPayment(impUid: String!, amount: Float!): Payment!
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
-  deleteUser: Boolean!
+  deleteUser(userId: String!): Boolean!
   login(email: String!, password: String!): String!
   restoreAccessToken: String!
 }
