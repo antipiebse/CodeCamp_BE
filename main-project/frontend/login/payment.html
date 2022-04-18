@@ -16,7 +16,7 @@
     ></script>
     <script>
       function mypayment() {
-        const myAmount = Number(document.getElementById("amount").value);
+        // const myAmount = Number(document.getElementById("amount").value);
 
         const IMP = window.IMP; // 생략 가능
         IMP.init("imp61795344"); // Example: imp00000000
@@ -25,9 +25,9 @@
             // param
             pg: "html5_inicis",
             pay_method: "card",
-            merchant_uid: 'merchant_' + new Date().getTime(),
+            // merchant_uid: 'merchant_' + new Date().getTime(),
             name: "맨투맨",
-            amount: myAmount,
+            amount: 100,
             buyer_email: "antipiebse@gmail.com",
             buyer_name: "문성민",
             buyer_tel: "010-7595-3425",
@@ -55,11 +55,11 @@
                 {
                   headers: {
                     authorization:
-                      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1MDEzNTYxNy1kYzdlLTQ4YTAtYjcxNy00YzU4ZWQzMjBhOWIiLCJlbWFpbCI6ImFhMjIyMmIyYWIiLCJpYXQiOjE2NDk5Mzk4OTYsImV4cCI6MTY0OTk0MzQ5Nn0.hUneV06NUr6HBrSSwBjMKgAyLKnHZ_UZXgfKwRD1D14",
+                      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5ODFmNzczMi0xZmNhLTQ2YTItYTAyNy0zZTYzZGFlZDM5ODMiLCJlbWFpbCI6ImFmZHMzMjEzYWYxM3MxMjMxMjMxYWQiLCJpYXQiOjE2NTAyNDEzODgsImV4cCI6MTY1MDI0NDk4OH0.9uF8fZh8HBJJkmvPDginYuqR-6kjdfkAyZ9yZi8EFqg",
                   },
                 }
               );
-
+                console.log(rsp.imp_uid)
               console.log(data);
             } else {
               // 결제 실패시
@@ -68,10 +68,37 @@
           }
         );
       }
+      function cancelPayment(){
+        const impUid = "imp_181422849355"
+        const reason = "사이즈가 작다."
+        axios.post(
+          "http://localhost:3000/graphql",
+          {
+                query: `
+                    mutation {
+                      canclePayment(impUid: "${impUid}", reason: "${reason}") {
+                        id
+                      }
+                    }
+                  `,
+              },
+              {
+                headers: {
+                  authorization:
+                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5ODhkZGZlMC02MTViLTQ5OWYtYTgzMC02ZDc4ODU3YjE3Y2YiLCJlbWFpbCI6ImFmZHMzMjEzYWYxM3MxMjMxMjMxYWQiLCJpYXQiOjE2NTAxMjczNzMsImV4cCI6MTY1MDEzMDk3M30.9sTU2VmbUiyp8kbB0LpTRlQeE0z7sSRza9KGunv_ptU",
+                },
+              }
+        ).then(res=>console.log('환불 성공')).catch(error=> console.log(error, "환불실패"))
+      } 
     </script>
   </head>
   <body>
-    결제할 금액: <input type="text" id="amount" />
+    <div>
+      <img src="../img/무신사 사진.png">
+    </div>
+    결제할 금액: 100원 
+    <!-- <input type="text" id="amount" value="100"/> -->
     <button onclick="mypayment()">결제하기</button>
+    <button onclick="cancelPayment()">환불하기</button>
   </body>
 </html>

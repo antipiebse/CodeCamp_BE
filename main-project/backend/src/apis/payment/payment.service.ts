@@ -1,6 +1,6 @@
 import { IamportService } from './../iamport/iamport.service';
 import { Payment, PAYMENT_STATUS_ENUM } from './entities/payment.entity';
-import { Injectable, UnprocessableEntityException } from "@nestjs/common";
+import { ConsoleLogger, Injectable, UnprocessableEntityException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from 'typeorm';
 import { User } from '../user/entities/user.entity';
@@ -20,26 +20,22 @@ export class PaymentService {
   async payment({impUid, amount, currentUser}){
     // 결제 정보 조회
     const access_token = await this.iamportService.getToken()
+
     const getPaymentData = await this.iamportService.getPaymentData({impUid, access_token})
-
     const paymentData = getPaymentData.data.response
-    
-    //상품 가격에 대한 검증은 erd수정 후 추가.
-  
 
-    console.log(paymentData)
+  
     // 유저 정보 찾아오기
     const user =  await this.userRepository.findOne({id: currentUser.sub})
 
 
-
     //결제 테이블에 추가된 정보인지 조회
     const checkAlreadyPayment = await this.paymentRepository.findOne({
-      id: currentUser.id
+      id: currentUser.sub
     })
-    if(checkAlreadyPayment) new UnprocessableEntityException('유효하지 않은 결제 요청입니다.')
+    if(checkAlreadyPayment) throw new UnprocessableEntityException('유효하지 않은 결제 요청입니다.')
 
-    if(paymentData.imp_uid !== impUid) new UnprocessableEntityException('유효하지 않은 결제 요청입니다. ')
+    if(paymentData.imp_uid !== impUid) throw new UnprocessableEntityException('유효하지 않은 결제 요청입니다. ')
     
     
     // if(paymentAmount.amount !== amount) new UnprocessableEntityException('실제로 결제한 금액이 아닙니다.')
@@ -54,7 +50,9 @@ export class PaymentService {
       status: PAYMENT_STATUS_ENUM.PAYMENT
     })
 
-
+    const findPayment = await this.paymentRepository.findOne({     impUid: impUid
+    })
+    console.log(findPayment)
     
     //유저의 돈 업데이트, update와 save의 차이점 save는 결과를 리턴받을 수 있고, update는 어떻게 변했는지는 안 나온다. 
     await this.userRepository.update({id:user.id},{money: user.money + amount})
@@ -62,8 +60,52 @@ export class PaymentService {
     //최종결과 프론트엔드에 돌려주기
     return payment
   }
-}
 
+
+
+  async Refund({impUid, reason, currentUser}){
+    //결제 정보 조회
+    const access_token = await this.iamportService.getToken()
+    const getPaymentData = await this.iamportService.getPaymentData({impUid, access_token})
+    console.log(getPaymentData.data.response.status)
+    // console.log(getPaymentData.data.response.status==="cancelled")
+    // if(getPaymentData.data.response.status==="cancelled") {throw new UnprocessableEntityException("이미 취소 처리된 요청입니다.")}
+    
+    console.log(currentUser.sub)
+    //요청한 유저 정보 가져오기
+    const user =  await this.userRepository.findOne({id: currentUser.sub})
+    if(currentUser.sub !== user.id) {throw new UnprocessableEntityException('유저 정보가 일치하지 않습니다.')}
+
+
+    console.log('321321')
+
+    //결제 정보 가져오기
+    const findPayment = await this.paymentRepository.findOne({
+      impUid: impUid
+    })
+    // console.log(findPayment)
+    const checksum = getPaymentData.data.response.amount
+    //유저 정보 업데이트
+    user.money=user.money-checksum
+    //유저의 잔돈이 없을 경우 환불 x
+    if(user.money<=0) {
+      return console.log('이미 전액 환불되었습니다.')
+    }
+
+    await this.userRepository.save(user)
+
+    //환불 요청
+    await this.iamportService.cancelPayment({impUid, reason, checksum})
+
+    const payment = await this.paymentRepository.save({
+      impUid: findPayment.impUid,
+      amount: -checksum,
+      user:currentUser.sub,
+      status: PAYMENT_STATUS_ENUM.CANCEL
+    })
+    // console.log(payment)
+    return payment
+  }
 
 
 
@@ -106,4 +148,4 @@ export class PaymentService {
     // // const paymentAmount = getPaymentDataAmount.data.response
     // console.log("결제 정보:", paymentData)
     // // console.log("돈 조회:", paymentAmount)
-    // //아임포트에 요청된 금액과 아이디 비교하기
+}

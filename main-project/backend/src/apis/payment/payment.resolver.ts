@@ -13,12 +13,22 @@ export class PaymentResolver {
 
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(()=>Payment)
-  createPayment(
+  async createPayment(
     @Args('impUid') impUid: string,
     @Args('amount')  amount: number,
     @CurrentUser() currentUser: ICurrentUser,
   ){
     // console.log(currentUser.email)
-    return this.paymentService.payment({impUid, amount, currentUser,})
+    return await this.paymentService.payment({impUid, amount, currentUser})
   }
+
+  @UseGuards(GqlAuthAccessGuard)
+  @Mutation(()=>Payment)
+  canclePayment(
+    @Args('impUid') impUid: string,
+    @Args('reason') reason: string,
+    @CurrentUser() currentUser: ICurrentUser,
+  ){
+    return this.paymentService.Refund({impUid, reason, currentUser})
+  } 
 }

@@ -102,6 +102,7 @@ type Mutation {
   createMainCateGory(category: String!): ProductMainCategory!
   createSubCategory(category: String!, productMainCategoryId: String!): ProductSubCategory!
   createPayment(impUid: String!, amount: Float!): Payment!
+  canclePayment(impUid: String!, reason: String!): Payment!
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   deleteUser(userId: String!): Boolean!
