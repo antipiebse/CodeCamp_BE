@@ -10,13 +10,13 @@ import { AuthController } from './auth.controller';
 import { JwtGoogleStrategy } from 'src/common/auth/jwt-social-google.strategy';
 import { JwtKakaoStrategy } from 'src/common/auth/jwt-social-kakao.strategy';
 import { JwtNaverStrategy } from 'src/common/auth/jwt-social-naver.strategy';
-import { ConfigService } from '@nestjs/config';
 
 
 @Module({
   imports:[
     JwtModule.register({}),
-    TypeOrmModule.forFeature([User]),ConfigService
+    TypeOrmModule.forFeature([User]),
+
   ],
   providers:[
     JwtGoogleStrategy,
