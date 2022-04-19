@@ -1,11 +1,11 @@
 function solution(s) {
   let answer = [0, 0]
-  while(s.length!==1){
-      prev = s.length
-      s = s.replace(/0/g,"").length
-      answer[1]+=prev-s
-      answer[0]++
-      s = s.toString(2)
+  while (s.length !== 1) {
+    prev = s.length
+    s = s.replace(/0/g, "").length
+    answer[1] += prev - s
+    answer[0]++
+    s = s.toString(2)
   }
   return answer
 }
@@ -27,12 +27,19 @@ function solution(s) {
 
 // recurision
 
-function solution(s){
+function solution(s) {
   let [count, remove] = [0, 0];
   function recurision() {
-    if(s ==="1"){
+    if (s === "1") {
       return [count, remove]
     }
     //0을 제거
+    remove += s.split("").filter(el => el === "0").length
+    //0이 제거된 1만 남은 문자열의 길이값을 이진법으로 변환
+    s = s.split("").filter(el => el === "1").length
+    s = s.toString(2)
+    count++
+    return recurision()
   }
+  return recurision()
 }

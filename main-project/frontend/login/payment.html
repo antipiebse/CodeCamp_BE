@@ -55,7 +55,7 @@
                 {
                   headers: {
                     authorization:
-                      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5ODFmNzczMi0xZmNhLTQ2YTItYTAyNy0zZTYzZGFlZDM5ODMiLCJlbWFpbCI6ImFmZHMzMjEzYWYxM3MxMjMxMjMxYWQiLCJpYXQiOjE2NTAyNDEzODgsImV4cCI6MTY1MDI0NDk4OH0.9uF8fZh8HBJJkmvPDginYuqR-6kjdfkAyZ9yZi8EFqg",
+                      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlZTVmMGIyZS1iYjQ4LTQzZWYtYjFmYi05MmUzZGRmNGNkNGUiLCJlbWFpbCI6InRlc3QiLCJpYXQiOjE2NTAyNzg0NjcsImV4cCI6MTY1MDI4MjA2N30.2wD8H21O8lfWfkRyyzc8mN7Xwed9S8jR2_sBQwkMxdM",
                   },
                 }
               );
@@ -69,7 +69,7 @@
         );
       }
       function cancelPayment(){
-        const impUid = "imp_181422849355"
+        const impUid = "imp_347168026182"
         const reason = "사이즈가 작다."
         axios.post(
           "http://localhost:3000/graphql",
@@ -85,7 +85,7 @@
               {
                 headers: {
                   authorization:
-                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5ODhkZGZlMC02MTViLTQ5OWYtYTgzMC02ZDc4ODU3YjE3Y2YiLCJlbWFpbCI6ImFmZHMzMjEzYWYxM3MxMjMxMjMxYWQiLCJpYXQiOjE2NTAxMjczNzMsImV4cCI6MTY1MDEzMDk3M30.9sTU2VmbUiyp8kbB0LpTRlQeE0z7sSRza9KGunv_ptU",
+                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlZTVmMGIyZS1iYjQ4LTQzZWYtYjFmYi05MmUzZGRmNGNkNGUiLCJlbWFpbCI6InRlc3QiLCJpYXQiOjE2NTAyNzg0NjcsImV4cCI6MTY1MDI4MjA2N30.2wD8H21O8lfWfkRyyzc8mN7Xwed9S8jR2_sBQwkMxdM",
                 },
               }
         ).then(res=>console.log('환불 성공')).catch(error=> console.log(error, "환불실패"))
