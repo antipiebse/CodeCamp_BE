@@ -24,7 +24,7 @@ export class PaymentService {
     //db와 연결
     queryRunner.connect()
     //transaction시작
-    queryRunner.startTransaction(' ')
+    queryRunner.startTransaction('SERIALIZABLE')
     try{
       // 결제 정보 조회 
       const access_token = await this.iamportService.getToken()

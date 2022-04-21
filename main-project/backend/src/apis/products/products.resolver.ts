@@ -39,7 +39,7 @@ export class ProductsResolver {
     return await this.productsService.update({productId, updateProductInput})
   }
 
-  @Mutation(()=> Boolean)
+  @Mutation(()=> String)
   deleteProduct(
     @Args('productId') productId: string, //
   ) {

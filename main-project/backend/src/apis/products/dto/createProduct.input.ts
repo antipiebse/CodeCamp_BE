@@ -1,5 +1,6 @@
 import { Field, InputType, Int } from "@nestjs/graphql"
-import {CreateProductDetailInput} from '../../productDetail/dto/createProductDetail.input'
+import { ProductTag } from "src/apis/productsTag/entities/productTag.entity"
+// import {CreateProductDetailInput} from '../../trash/productDetail/dto/createProductDetail.input'
 
 @InputType()
 export class CreateProductInput {
@@ -12,12 +13,36 @@ export class CreateProductInput {
     @Field(()=> Int)
     price: number
 
-    @Field(()=>CreateProductDetailInput)
-    createProductDetailInput: CreateProductDetailInput
+    @Field(()=> String)
+    gender: string
 
-    // @Field(()=>ProductSubCategoryInput)
-    // productSubCategory:ProductSubCategoryInput
+    @Field(()=> String)
+    season: string
 
+
+    @Field(()=> String)
+    size: string
+
+    @Field(()=> String)
+    brand: string
+
+    @Field(()=> String)
+    origin: string
+
+    @Field(()=> Int)
+    stock: number
+
+    @Field(()=> String)
+    color: string
+
+    @Field(()=>Boolean)
+    isSoldout: boolean
+    
     @Field(()=>String)
     productSubCategoryId: string
+    
+
+    // @Field(() => [ProductTag])
+    // productTags: ProductTag[];
+  
 }

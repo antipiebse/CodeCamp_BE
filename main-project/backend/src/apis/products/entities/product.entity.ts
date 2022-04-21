@@ -1,12 +1,8 @@
-import { ProductDetail } from '../../productDetail/entities/productDetail.entity'
-// import { Order } from '../../order/entities/order.entity';
 import { ProductSubCategory } from '../../productsSubCategory/entities/productSubCategory.entity';
 import { DeleteDateColumn, Column, PrimaryGeneratedColumn, Entity, OneToOne, JoinColumn, ManyToOne, ManyToMany, JoinTable, In } from 'typeorm'
-// import { User } from '../../user/entities/user.entity'
 import { ProductCart} from '../../productCart/entities/productCart.entity'
 import { Field, ObjectType, Int } from '@nestjs/graphql';
 import { ProductTag } from 'src/apis/productsTag/entities/productTag.entity';
-import { Order } from 'src/apis/order/entities/order.entity';
 
 @Entity()
 @ObjectType()
@@ -27,18 +23,41 @@ export class Product {
   @Field(()=> Int)
   price: number
 
+  @Column() 
+  @Field(()=> String)
+  gender: string
+
+  @Column() 
+  @Field(()=> String)
+  season: string
+  
+  @Column() 
+  @Field(()=> String)
+  size: string
+
+  @Column()
+  @Field(()=> String)
+  brand: string
+
+  @Column() 
+  @Field(()=> String)
+  origin: string
+
+  @Column()
+  @Field(()=> Int)
+  stock: number
+
+  @Column()
+  @Field(()=> String)
+  color: string
+
   @Column({ default: false })  
   @Field(()=>Boolean)
   isSoldout: boolean
 
-  @JoinColumn()
-  @OneToOne(() => ProductDetail)
-  @Field(()=>ProductDetail)
-  productDetail:ProductDetail
-
-  @ManyToOne(()=>ProductCart)
-  @Field(()=>ProductCart)
-  productCart: ProductCart
+  // @ManyToOne(()=>ProductCart)
+  // @Field(()=>ProductCart)
+  // productCart: ProductCart
 
   @ManyToOne(() => ProductSubCategory)
   @Field(()=> ProductSubCategory)
@@ -47,10 +66,10 @@ export class Product {
   @DeleteDateColumn()
   deletedAt: Date
   
-  @JoinTable()
-  @ManyToMany(() => ProductTag, (productTags) => productTags.products)
-  @Field(() => [ProductTag])
-  productTags: ProductTag[];
+  // @JoinTable()
+  // @ManyToMany(() => ProductTag, (productTags) => productTags.products)
+  // @Field(() => [ProductTag])
+  // productTags: ProductTag[];
 
   // @JoinColumn()
   // @ManyToMany(()=> Order, (orders)=> orders.product)

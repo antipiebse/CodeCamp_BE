@@ -26,15 +26,11 @@ type ProductSubCategory {
   productMainCategory: ProductMainCategory!
 }
 
-type Board {
-  number: Int!
-  writer: String!
-  title: String!
-  contents: String!
-}
-
-type ProductDetail {
+type Product {
   id: String!
+  name: String!
+  description: String!
+  price: Int!
   gender: String!
   season: String!
   size: String!
@@ -42,29 +38,8 @@ type ProductDetail {
   origin: String!
   stock: Int!
   color: String!
-}
-
-type ProductCart {
-  id: String!
-  productId: String!
-}
-
-type ProductTag {
-  id: String!
-  name: String!
-  products: [Product!]!
-}
-
-type Product {
-  id: String!
-  name: String!
-  description: String!
-  price: Int!
   isSoldout: Boolean!
-  productDetail: ProductDetail!
-  productCart: ProductCart!
   productSubCategory: ProductSubCategory!
-  productTags: [ProductTag!]!
 }
 
 type Payment {
@@ -86,45 +61,51 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type ProductImage {
+  id: String!
+  url: String!
+  product: Product!
+}
+
+type ProductCart {
+  id: String!
+  productId: String!
+}
+
 type Query {
-  fetchBoards: [Board!]!
   fetchProducts: [Product!]!
   fetchProduct(productId: String!): Product!
+  fetchProductImages: [ProductImage!]!
+  fetchProductImage(productImageId: String!): ProductImage!
   fetchUsers: [User!]!
   fetchUser: User!
 }
 
 type Mutation {
-  createBoard(writer: String!, title: String!, contents: String!, createBoardInput: createBoardInput!): String!
+  login(email: String!, password: String!): String!
+  restoreAccessToken: String!
+  uploadFile(files: [Upload!]!): [String!]!
   createProduct(createProductInput: CreateProductInput!): Product!
   updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
-  deleteProduct(productId: String!): Boolean!
+  deleteProduct(productId: String!): String!
   createMainCateGory(category: String!): ProductMainCategory!
   createSubCategory(category: String!, productMainCategoryId: String!): ProductSubCategory!
   createPayment(impUid: String!, amount: Float!): Payment!
   canclePayment(impUid: String!, reason: String!): Payment!
+  createProductImage(productId: String!, url: String!): ProductImage!
+  updateProductImage(productId: String!, url: [String!]!): [ProductImage!]!
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   deleteUser(userId: String!): Boolean!
-  login(email: String!, password: String!): String!
-  restoreAccessToken: String!
 }
 
-input createBoardInput {
-  writer: String!
-  title: String!
-  contents: String!
-}
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
 
 input CreateProductInput {
   name: String!
   description: String!
   price: Int!
-  createProductDetailInput: CreateProductDetailInput!
-  productSubCategoryId: String!
-}
-
-input CreateProductDetailInput {
   gender: String!
   season: String!
   size: String!
@@ -132,13 +113,22 @@ input CreateProductDetailInput {
   origin: String!
   stock: Int!
   color: String!
+  isSoldout: Boolean!
+  productSubCategoryId: String!
 }
 
 input UpdateProductInput {
   name: String
   description: String
   price: Int
-  createProductDetailInput: CreateProductDetailInput
+  gender: String
+  season: String
+  size: String
+  brand: String
+  origin: String
+  stock: Int
+  color: String
+  isSoldout: Boolean
   productSubCategoryId: String
 }
 

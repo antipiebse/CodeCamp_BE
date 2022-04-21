@@ -35,3 +35,7 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 .env
+
+
+# GCP KEY
+back01-347705-14996fc5f866.json

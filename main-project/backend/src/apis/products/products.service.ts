@@ -1,4 +1,3 @@
-import { ProductDetail } from '../productDetail/entities/productDetail.entity'
 import { Product } from './entities/product.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -10,8 +9,6 @@ export class ProductsService {
     @InjectRepository(Product)
     private readonly productRepository:Repository<Product>,
 
-    @InjectRepository(ProductDetail)
-    private readonly productDeatilRepository:Repository<ProductDetail>,
     
     @InjectRepository(ProductTag)
     private readonly productTagRepository: Repository<ProductTag>,
@@ -25,33 +22,28 @@ export class ProductsService {
   }
 
   async create({createProductInput}){
-    const { productDetail, productSubCategoryId, productTags, ...product } = createProductInput
+    const { productSubCategoryId, productTags, ...product } = createProductInput
     
-    const result = await this.productDeatilRepository.save({ 
-      ...productDetail,
-    })
-
     // 태그
     const result2 = []    
-    for(let i=0; i<productTags.length;i++){
-      const tagname = productTags[i].replace("#", "")//#을 제거
+    // for(let i=0; i<productTags.length;i++){
+    //   const tagname = productTags[i].replace("#", "")//#을 제거
 
-      // 이미 등록된 태그인지 확인해보기
-      const prevTag = await this.productTagRepository.findOne({name: tagname})
+    //   // 이미 등록된 태그인지 확인해보기
+    //   const prevTag = await this.productTagRepository.findOne({name: tagname})
 
-      //태그 존재
-      if(prevTag){
-        result2.push(prevTag)
-      }else{
-      //태그 존재 x 
-      const newTag = await this.productTagRepository.save({name:tagname})
-      result2.push(newTag)
-      }
-    }
+    //   //태그 존재
+    //   if(prevTag){
+    //     result2.push(prevTag)
+    //   }else{
+    //   //태그 존재 x 
+    //   const newTag = await this.productTagRepository.save({name:tagname})
+    //   result2.push(newTag)
+    //   }
+    // }
 
     return await this.productRepository.save({
       ...product,
-      productDetail: result,
       productSubCategory: { id: productSubCategoryId},
       productTags: result2,
     })
