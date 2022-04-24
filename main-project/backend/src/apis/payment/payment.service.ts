@@ -159,7 +159,6 @@ export class PaymentService {
     //   headers: { "Content-Type": "application/json" }, // "Content-Type": "application/json"
     //   data: {
     //     imp_key: "8680122769488528", // REST API키
-    //     imp_secret: "38ef437a9cdd7ac065378b64e62b329c465f83f4e2a7bed72621aec9118a7f3b0d2fb9ca6d9967cd" // REST API Secret
     //   }
     // });
 
