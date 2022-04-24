@@ -25,14 +25,19 @@ export class ProductImageService {
   }
   
   async create({ productId, url }){
-    return await this.productImageRepository.save({ product:{ id:productId }, url })
+    const waitedFiles = await Promise.all(url)
+
+    const SaveResult = waitedFiles.map(el=>{
+      return this.productImageRepository.save({product:{ id:productId }, url:el})
+    })
+    return SaveResult
   }
 
   async update({productId, url}){
     //상품 아이디로 기존 url들 삭제
-    const result = await this.productImageRepository.delete({product:{ id:productId }})
+    const DeleteResult = await this.productImageRepository.delete({product:{ id:productId }})
     
-    console.log(result)
+    console.log(DeleteResult)
     const waitedFiles = await Promise.all(url)
 
     // const res = await Promise.all(waitedFiles.map((el)=>{
@@ -40,13 +45,12 @@ export class ProductImageService {
     //     return this.productImageRepository.save({product:{ id:productId }, url:el})
     //   })
     // }))
-    const res =  waitedFiles.map(el=> {
+    const SaveResult =  waitedFiles.map(el=> {
       return this.productImageRepository.save({product:{ id:productId }, url:el})
     })
 
-    console.log(res)
+    console.log(SaveResult)
     
-
-    return res
+    return SaveResult
   }
 }

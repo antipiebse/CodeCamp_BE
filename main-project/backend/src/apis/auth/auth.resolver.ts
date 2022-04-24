@@ -1,16 +1,22 @@
+import { GqlAuthAccessGuard } from 'src/common/auth/gql-auth-guard';
 import { AuthService } from './auth.service';
-import { UnprocessableEntityException, UseGuards } from '@nestjs/common';
+import { Inject, UnprocessableEntityException, UseGuards, CACHE_MANAGER, UnauthorizedException } from '@nestjs/common';
 import {Args, Context, Mutation, Resolver } from '@nestjs/graphql';
 import { UserService } from '../user/user.service';
 import * as bcrypt from 'bcrypt'
 import { CurrentUser, ICurrentUser } from 'src/common/auth/gql-user.param';
 import { GqlAuthRefreshGuard } from 'src/common/auth/gql-auth-guard';
+import {Cache} from 'cache-manager'
+import * as jwt from 'jsonwebtoken'
 
 @Resolver()
 export class AuthResolver {
   constructor(
     private readonly userService: UserService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+
+    @Inject(CACHE_MANAGER)
+    private readonly cacheManager: Cache,
   ){}
   @Mutation(()=> String)
   async login(
@@ -38,5 +44,43 @@ export class AuthResolver {
     @CurrentUser() currentUser: ICurrentUser
   ){
     return this.authService.getAccessToken({ user:currentUser })
+  }
+
+  @UseGuards(GqlAuthAccessGuard)
+  @Mutation(()=>String)
+  async logout(
+    @Context() context: any
+  ){
+    console.log("Fsdafasdf")
+    const cookie = context.req.rawHeaders
+    console.log(cookie)
+    const accessToken = cookie[cookie.indexOf("application/json")+2].split(' ')[1]
+    const refreshToken = cookie[cookie.indexOf("Cookie")+1].split('=')[1]
+    console.log(refreshToken)
+    // console.log(cookie)
+    // console.log(Array.isArray(cookie))
+    // console.log(cookie[cookie.indexOf("Authorization")+1].split(' ')[1])
+    
+    
+    try{
+      const decodeAccess = jwt.verify(accessToken, 'myAccessKey')
+      const decodeRefresh = jwt.verify(refreshToken, 'myRefreshKey') 
+      console.log("엑세스", decodeAccess, "리프레시ㅏ", decodeRefresh)
+      const setAccess = this.cacheManager.set(`accessToken:${accessToken}`, 'accessToken',{
+        ttl:decodeAccess["exp"]-decodeAccess["iat"]})
+      const setRefresh = this.cacheManager.set(`refreshToken:${refreshToken}`, 'refreshToken',{
+        ttl:decodeRefresh["exp"]-decodeRefresh["iat"]})
+      
+      await Promise.all([setAccess, setRefresh])
+  
+  
+      return '로그아웃에 성공했습니다.'
+    }catch(error){
+      throw new UnauthorizedException
+    }
+
+
+
+    // await this.cacheManager.set("logoutUser", )
   }
 }

@@ -13,12 +13,13 @@ import { CurrentUser } from './../../common/auth/gql-user.param';
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
+  @UseGuards(GqlAuthAccessGuard)
   @Query(()=> [User])
   fetchUsers()  {
       return this.userService.findAll()
   }
 
-  @UseGuards(GqlAuthAccessGuard )//passport라이브러리를 통해 guard형성!
+  @UseGuards(GqlAuthAccessGuard)//passport라이브러리를 통해 guard형성!
   @Query(()=> User)
   async fetchUser(
     @CurrentUser() currentUser: any, //우리가 만든 params로 context의 데이터를 가져올 수 있음.
