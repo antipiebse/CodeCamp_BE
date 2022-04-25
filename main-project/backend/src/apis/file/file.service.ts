@@ -12,7 +12,7 @@ export class FileService{
   async upload({files}:IFile){
     const storage = new Storage({
       projectId: 	"back01-347705",//우리의 프로젝트 id
-      keyFilename:"back01-347705-14996fc5f866.json", //keyfilename
+      keyFilename:"GCP_KEYFILE.json", //keyfilename
     }).bucket("codecamp-file-storage-sungmin")//저장할 장소
     
     // 일단 먼저 프론트엔드로 부터 저장할 데이터 다 받아오기

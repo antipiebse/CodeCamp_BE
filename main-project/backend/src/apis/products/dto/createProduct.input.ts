@@ -19,7 +19,6 @@ export class CreateProductInput {
     @Field(()=> String)
     season: string
 
-
     @Field(()=> String)
     size: string
 
@@ -36,13 +35,12 @@ export class CreateProductInput {
     color: string
 
     @Field(()=>Boolean)
-    isSoldout: boolean
+    is_soldout: boolean
     
     @Field(()=>String)
-    productSubCategoryId: string
+    product_subcategory: string
     
-
-    // @Field(() => [ProductTag])
-    // productTags: ProductTag[];
+    @Field(() => [String])
+    product_tags: string[];
   
 }

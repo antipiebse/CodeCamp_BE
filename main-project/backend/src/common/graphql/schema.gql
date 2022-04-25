@@ -26,6 +26,12 @@ type ProductSubCategory {
   productMainCategory: ProductMainCategory!
 }
 
+type ProductTag {
+  id: String!
+  name: String!
+  products: [Product!]!
+}
+
 type Product {
   id: String!
   name: String!
@@ -38,8 +44,9 @@ type Product {
   origin: String!
   stock: Int!
   color: String!
-  isSoldout: Boolean!
-  productSubCategory: ProductSubCategory!
+  is_soldout: Boolean!
+  product_subcategory: ProductSubCategory!
+  product_tags: [ProductTag!]!
 }
 
 type Payment {
@@ -73,7 +80,7 @@ type ProductCart {
 }
 
 type Query {
-  fetchProducts: [Product!]!
+  fetchProducts(search: String!): [Product!]!
   fetchProduct(productId: String!): Product!
   fetchProductImages: [ProductImage!]!
   fetchProductImage(productImageId: String!): ProductImage!
@@ -114,8 +121,9 @@ input CreateProductInput {
   origin: String!
   stock: Int!
   color: String!
-  isSoldout: Boolean!
-  productSubCategoryId: String!
+  is_soldout: Boolean!
+  product_subcategory: String!
+  product_tags: [String!]!
 }
 
 input UpdateProductInput {
@@ -129,8 +137,9 @@ input UpdateProductInput {
   origin: String
   stock: Int
   color: String
-  isSoldout: Boolean
-  productSubCategoryId: String
+  is_soldout: Boolean
+  product_subcategory: String
+  product_tags: [String!]
 }
 
 input CreateUserInput {

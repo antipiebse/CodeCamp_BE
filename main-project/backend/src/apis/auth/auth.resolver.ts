@@ -66,12 +66,12 @@ export class AuthResolver {
       const decodeAccess = jwt.verify(accessToken, 'myAccessKey')
       const decodeRefresh = jwt.verify(refreshToken, 'myRefreshKey') 
       console.log("엑세스", decodeAccess, "리프레시ㅏ", decodeRefresh)
-      const setAccess = this.cacheManager.set(`accessToken:${accessToken}`, 'accessToken',{
+      await this.cacheManager.set(`accessToken:${accessToken}`, 'accessToken',{
         ttl:decodeAccess["exp"]-decodeAccess["iat"]})
-      const setRefresh = this.cacheManager.set(`refreshToken:${refreshToken}`, 'refreshToken',{
+      await this.cacheManager.set(`refreshToken:${refreshToken}`, 'refreshToken',{
         ttl:decodeRefresh["exp"]-decodeRefresh["iat"]})
       
-      await Promise.all([setAccess, setRefresh])
+      // await Promise.all([setAccess, setRefresh])
   
   
       return '로그아웃에 성공했습니다.'

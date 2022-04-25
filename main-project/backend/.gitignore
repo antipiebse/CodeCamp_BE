@@ -38,4 +38,6 @@ lerna-debug.log*
 .zip
 
 # GCP KEY
-back01-347705-14996fc5f866.json
+.GCP_KEYFILE.json
+
+.Big_query.json

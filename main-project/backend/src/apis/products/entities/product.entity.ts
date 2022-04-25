@@ -1,5 +1,5 @@
 import { ProductSubCategory } from '../../productsSubCategory/entities/productSubCategory.entity';
-import { DeleteDateColumn, Column, PrimaryGeneratedColumn, Entity, OneToOne, JoinColumn, ManyToOne, ManyToMany, JoinTable, In } from 'typeorm'
+import { UpdateDateColumn, DeleteDateColumn, Column, PrimaryGeneratedColumn, Entity, OneToOne, JoinColumn, ManyToOne, ManyToMany, JoinTable, In } from 'typeorm'
 import { ProductCart} from '../../productCart/entities/productCart.entity'
 import { Field, ObjectType, Int } from '@nestjs/graphql';
 import { ProductTag } from 'src/apis/productsTag/entities/productTag.entity';
@@ -53,7 +53,7 @@ export class Product {
 
   @Column({ default: false })  
   @Field(()=>Boolean)
-  isSoldout: boolean
+  is_soldout: boolean
 
   // @ManyToOne(()=>ProductCart)
   // @Field(()=>ProductCart)
@@ -61,16 +61,19 @@ export class Product {
 
   @ManyToOne(() => ProductSubCategory)
   @Field(()=> ProductSubCategory)
-  productSubCategory: ProductSubCategory 
+  product_subcategory: ProductSubCategory 
   
   @DeleteDateColumn()
-  deletedAt: Date
+  deleted_at: Date
   
-  // @JoinTable()
-  // @ManyToMany(() => ProductTag, (productTags) => productTags.products)
-  // @Field(() => [ProductTag])
-  // productTags: ProductTag[];
+  @JoinTable()
+  @ManyToMany(() => ProductTag, (productTags) => productTags.products)
+  @Field(() => [ProductTag])
+  product_tags: ProductTag[];
 
+  @UpdateDateColumn()
+  updatedAt: Date
+  
   // @JoinColumn()
   // @ManyToMany(()=> Order, (orders)=> orders.product)
   // @Field(()=>[Order])
