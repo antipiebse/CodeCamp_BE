@@ -19,7 +19,7 @@ export class ProudctSubscriber implements EntitySubscriberInterface<Product>{
     console.log(event)//log는 보통 mysql에 남기지 않는다. 사이즈도 크고 양도 많기 때문이다.
     const bigQuery = new BigQuery({
       projectId:"back01-347705",
-      keyFilename:"gcp-bigquery.json"
+      keyFilename:"Big_query.json"
     })
     bigQuery
       .dataset("mybigquery02")//데이터베이스 이름

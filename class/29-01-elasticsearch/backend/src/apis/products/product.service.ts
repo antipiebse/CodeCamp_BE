@@ -53,35 +53,36 @@ export class ProductService {
 
 
     const result = await this.productSaleslocationRepository.save({
-      ...productSaleslocation,
+      ...productSaleslocation
     });
+    console.log()
 
-    const result2 = []
-    // productTags // ["#전자제품", "#영등포", "#컴퓨터"]
-    for(let i = 0 ; i<productTags.length; i++){
-      console.log(productTags)
-      const tagname = productTags[i].replace('#', '')
-      console.log(tagname)
-      // 이미 등록된 태그인지 확인해보기
-      const prevTag =await this.productTagRespository.findOne( {name: tagname})
+    // const result2 = []
+    // // productTags // ["#전자제품", "#영등포", "#컴퓨터"]
+    // for(let i = 0 ; i<productTags.length; i++){
+    //   console.log(productTags)
+    //   const tagname = productTags[i].replace('#', '')
+    //   console.log(tagname)
+    //   // 이미 등록된 태그인지 확인해보기
+    //   const prevTag =await this.productTagRespository.findOne( {name: tagname})
 
-      //기존에 태그 존재한다면
-      if(prevTag){
-        result2.push(prevTag)
-       //기존에 태그가 없었다면
-      }else{
+    //   //기존에 태그 존재한다면
+    //   if(prevTag){
+    //     result2.push(prevTag)
+    //    //기존에 태그가 없었다면
+    //   }else{
       
-      const newTag = await this.productTagRespository.save({ name: tagname})
-      result2.push(newTag)
-      }
-    }
+    //   const newTag = await this.productTagRespository.save({ name: tagname})
+    //   result2.push(newTag)
+    //   }
+    // }
     
     
     return await this.productRepository.save({
       ...product,
       productSaleslocation: result,
       productCategory: { id: productCategoryId }, // 카테고리 추가(result 통째로 넣기 vs id만 넣기)
-      productTags: result2                                                                              
+      // productTags: result2                                                                              
     });
   }
 
