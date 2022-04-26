@@ -11,9 +11,9 @@ interface IFile{
 export class FileService{
   async upload({files}:IFile){
     const storage = new Storage({
-      projectId: 	"back01-347705",//우리의 프로젝트 id
-      keyFilename:"GCP_KEYFILE.json", //keyfilename
-    }).bucket("codecamp-file-storage-sungmin")//저장할 장소
+      projectId:process.env.STORAGE_KEY_FILENAME,
+      keyFilename:process.env.STORAGE_PROJECT_ID,
+    }).bucket(process.env.STORAGE_BUCKET)//저장할 장소
     
     // 일단 먼저 프론트엔드로 부터 저장할 데이터 다 받아오기
     const waitedFiles = await Promise.all(files)
@@ -23,7 +23,7 @@ export class FileService{
       return new Promise((resolve, reject)=>{
         el.createReadStream()//파일을 읽어드리는 함수, 실행시켜야 파일이 읽어짐!
           .pipe(storage.file(el.filename).createWriteStream()) //파일을 읽고 어떤 작업을 할 지 정함(업로드, 사이즈 변경 등등)
-          .on("finish", ()=> resolve(`codecamp-file-storage-sungmin/${el.filename}`)) //성공시
+          .on("finish", ()=> resolve(`${process.env.STORAGE_BUCKET}/${el.filename}`)) //성공시
           .on("error", (error: Error)=> reject(error))//에러발생시 
      })
     }))
