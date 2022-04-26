@@ -4,3 +4,4 @@ node_modules
 
 # GCP KEY
 GCP_KEYFILE.json
+BIG_QUERY.json

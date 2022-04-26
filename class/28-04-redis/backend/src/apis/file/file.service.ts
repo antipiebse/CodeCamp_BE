@@ -11,9 +11,9 @@ interface IFile{
 export class FileService{
   async upload({files}:IFile){
     const storage = new Storage({
-      projectId: 	"back01-347705",
-      keyFilename:"GCP_KEYFILE.json",
-    }).bucket("codecamp-file-storage-sungmin")//저장할 장소
+      projectId:process.env.STORAGE_KEY_FILENAME,
+      keyFilename:process.env.STORAGE_PROJECT_ID,
+    }).bucket(process.env.STORAGE_BUCKET)//저장할 장소
 
     // 일단 먼저 프론트엔드로 부터 저장할 데이터 다 받아오기
     const waitedFiles = await Promise.all(files)

@@ -36,4 +36,6 @@ lerna-debug.log*
 
 .gcp-bigquery.json
 .GCP_KEYFILE.json
-.Big_query.json
+.BIG_QUERY.json
+
+.env
