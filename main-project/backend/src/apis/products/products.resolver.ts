@@ -31,12 +31,17 @@ export class ProductsResolver {
     let result = await this.cacheManager.get(`${search}`)
     console.log("😊\\",result)
     if(!result){
-    // 엘라스틱 서치에서 조회 연습하기!!
+    // 엘라스틱 서치에서 조회 연습하기!
       console.log("조회 시작!")
       result = await this.elasticsearchService.search({
         index:'myproduct',
+        // query: {
+        //   match: {name:search},
+        // }
         query: {
-          match_phrase: {description:`${search}`},
+          bool: {
+            should:[{ prefix: { name: search } }]
+          }
         }
       })
       //console.log(JSON.stringify(result, null,'  '))
@@ -47,13 +52,6 @@ export class ProductsResolver {
         el["_source"][""]
         return el["_source"]
       })
-      console.log(search)
-      console.log(result)
-      // for(let i=0;i<result["hits"]["hits"].length;i++){
-      //   result["hits"]["hits"][i]["_source"]
-      // }
-      // 엘라스틱서치에서 조회해보기 위해 임시 주석
-      // return this.productService.findAll();
       console.log("😊😊😊")
       await this.cacheManager.set(search, result,
       {
@@ -64,6 +62,24 @@ export class ProductsResolver {
     //결과 반환W
     return result
   }
+    // @Query(()=>[Product])
+    // async fetchProducts(
+    //   @Args('search') search: string,
+    // ){
+    //   // 1. 레디스에 캐시되어 있는지 확인하기
+
+    //   // 2. 레디스에 캐시가 되어있지 않다면, 엘라스틱서치에서 조회(유저가 검색한 검색어로 조회)
+    //   const result = await this.elasticsearchService.search({
+    //     index: 'myproduct',//이때 index는 엘라스틱서치에서의 테이블 명이다.
+    //     query: { match:{name: search}},
+    //   })
+    //   console.log(result)
+    //   // 3. 엘라스틱 서치에서 조회결과가 있다면, 레디스에 검색결과 캐싱해놓기
+
+    //   // 4. 최종 결과 반환
+    // }
+
+
 
   @Query(()=>Product)
   fetchProduct(

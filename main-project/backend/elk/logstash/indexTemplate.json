@@ -1,0 +1,46 @@
+{
+  "template": "*",
+  "settings": {
+    "analysis":{
+      "analyzer":{
+        "my_ngram_analyzer": {
+          "type": "custom",
+          "tokenizer": "my_ngram_tokenizer",
+          "filter":["lowercase", "my_stop_filter"]
+        }
+      },
+      "tokenizer":{
+        "my_ngram_tokenizer":{
+          "type": "nGram",
+          "min_gram": "1",
+          "max_gram": "10"
+        }
+      },
+      "filter":{
+        "my_stop_filter":{
+          "type": "stop",
+          "stopwords": [
+            "in",
+            "the",
+            "days",
+            "on"
+          ]
+        }
+      }
+    },
+    "max_ngram_diff": "10"
+  },
+  "mappings": {
+    "properties": {
+      "name" : {
+        "type": "text",
+        "analyzer": "my_ngram_analyzer"
+      },
+      "description": {
+        "type": "text",
+        "analyzer": "my_ngram_analyzer"
+      }
+    }
+  }
+}
+
