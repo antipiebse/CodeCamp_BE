@@ -25,7 +25,7 @@ import { FileModule } from './apis/file/file.module';
          context: ({req,res}) => ({req, res}) //context의 req, res를 api에서 사용하기 위해 적용
         }),
       TypeOrmModule.forRoot({
-        // type: 'mysql',
+        type: 'mysql',
         host: 'my-database',
         // host: 'localhost',
         port: 3306,
