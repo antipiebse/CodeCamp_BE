@@ -27,12 +27,13 @@ import { FileModule } from './apis/file/file.module';
       TypeOrmModule.forRoot({
         type: 'mysql',
         host: process.env.HOST,
+        // host: 'antipiebse.shop', A레코드 설정을 통해 소스 코드 변경 없이 호스트 변경이 가능하다.
         // host: 'localhost',
         port: 3306,
         username: 'root',
         password: 'root!',
         // database: 'myproject02',
-        database: 'myserver02',
+        database: 'mypod02',
         entities: [__dirname + '/apis/**/*.entity.*'],
         synchronize: true,
         logging: true,
