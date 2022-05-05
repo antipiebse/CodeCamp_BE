@@ -9,6 +9,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductCategoryModule } from './apis/productsCategory/productCategory.module.js';
 import { AuthModule } from './apis/auth/auth.module';
 import { FileModule } from './apis/file/file.module';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 @Module({//dependency
   imports: [
@@ -26,14 +28,15 @@ import { FileModule } from './apis/file/file.module';
         }),
       TypeOrmModule.forRoot({
         type: 'mysql',
-        host: process.env.HOST,
+        host: '10.119.208.3',
         // host: 'antipiebse.shop', A레코드 설정을 통해 소스 코드 변경 없이 호스트 변경이 가능하다.
         // host: 'localhost',
+        // host:'my-database-02-service'
         port: 3306,
         username: 'root',
         password: 'root!',
         // database: 'myproject02',
-        database: 'mypod02',
+        database: 'myserver02',
         entities: [__dirname + '/apis/**/*.entity.*'],
         synchronize: true,
         logging: true,
@@ -41,8 +44,8 @@ import { FileModule } from './apis/file/file.module';
         // retryDelay:1000
       }),
     ],
-//   controllers: [AppController],
-//   providers: [AppService],
+    controllers: [AppController],
+   providers: [AppService],
     
     // app모듈에서도 사용
 })
