@@ -2,14 +2,14 @@ version: "3.7"
 
 services:
   my-backend: 
-    image: asia.gcr.io/back01-347705/my-backend02:1.0.5
+    image: asia.gcr.io/back01-347705/my-backend02:1.0.6
     build:
       context: .
       dockerfile: Dockerfile
     # volumes:
     #   - ./src:/myfolder/src
-    env_file:
-      - ./.env.prod
+    # env_file:
+    #   - ./.env.prod
     ports:
       - 3000:3000
 

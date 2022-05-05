@@ -1,6 +1,5 @@
 steps:
   # 1단계
-  docker-comopose -
   - name: docker/compose:1.29.0
     args:
       - -f
@@ -18,7 +17,7 @@ steps:
       - 'set',
       - 'image',
       -  'deployment/my-backend02',
-      -  'my-backend-sha256-1=asia.gcr.io/back01-347705/my-backend02:1.0.5',
+      -  'my-backend-sha256-1=asia.gcr.io/back01-347705/my-backend02:1.0.6',
       env:
       - CLOUDSDK_COMPUTE_ZONE=asia-northeast3
       - CLOUDSDK_CONTAINER_CLUSTER=autopilot-cluster-02-1
