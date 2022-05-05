@@ -14,10 +14,10 @@ steps:
   # 3단계
   - name: gcr.io/cloud-builders/kubectl
     args:
-      - 'set',
-      - 'image',
-      -  'deployment/my-backend02',
-      -  'my-backend-sha256-1=asia.gcr.io/back01-347705/my-backend02:1.0.6',
+      - set
+      - image
+      - deployment/my-backend02
+      - my-backend-sha256-1=asia.gcr.io/back01-347705/my-backend02:1.0.7
       env:
       - CLOUDSDK_COMPUTE_ZONE=asia-northeast3
       - CLOUDSDK_CONTAINER_CLUSTER=autopilot-cluster-02-1

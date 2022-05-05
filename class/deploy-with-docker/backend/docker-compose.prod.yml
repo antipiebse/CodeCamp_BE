@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   my-backend: 
-    image: asia.gcr.io/back01-347705/my-backend02:1.0.6
+    image: asia.gcr.io/back01-347705/my-backend02:1.0.7
     build:
       context: .
       dockerfile: Dockerfile
