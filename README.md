@@ -1,4 +1,4 @@
-# NestJS와 GraphQL, TypeORM을 이용한 쇼핑몰 API구현
+# NestJS와 GraphQL, TypeORM을 이용한 쇼핑몰 API구현(MainProject)
 
 ---
 > 백엔드 주니어 개발자의 쇼핑몰 구축을 위한 API 개발 일지입니다.
